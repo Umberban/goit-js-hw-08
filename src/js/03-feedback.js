@@ -1,4 +1,4 @@
-// import throttle from 'lodash.throttle';
+import throttle from 'lodash.throttle';
 const mainKeyName = "feedback-form-state";
 const obj ={
     email: "",
@@ -35,5 +35,5 @@ function clearForm(event){
     }
 }
  
-mainFormEl.addEventListener('input',saveKey);
+mainFormEl.addEventListener('input',throttle(saveKey),"500");
 mainFormEl.addEventListener('submit',clearForm);
