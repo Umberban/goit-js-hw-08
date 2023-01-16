@@ -32,5 +32,5 @@ function dataFromStorage(){
   }
 }}
 dataFromStorage();
-mainFormEl.addEventListener('input',throttle(saveKey),"500");
+mainFormEl.addEventListener('input',throttle(saveKey),500);
 mainFormEl.addEventListener('submit',clearForm);
