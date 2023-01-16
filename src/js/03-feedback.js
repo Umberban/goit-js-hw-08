@@ -1,6 +1,6 @@
 import throttle from 'lodash.throttle';
 const mainKeyName = "feedback-form-state";
-const obj ={
+let obj ={
     email: "",
     message: "",
 };
@@ -13,27 +13,24 @@ const load = key => {
       console.error("Get state error: ", error.message);
     }
   };
-function saveKey (){
-    obj.email = mainFormEl.elements.email.value;
-    obj.message = mainFormEl.elements.message.value;
+function saveKey (event){
+    obj[event.target.name] = event.target.value;
     localStorage.setItem(mainKeyName, JSON.stringify(obj));
 }
 function clearForm(event){
     event.preventDefault();
-    console.log( `email: ${mainFormEl.elements.email.value} message: ${mainFormEl.elements.message.value}`)
+    console.log( obj)
     mainFormEl.reset();
     localStorage.removeItem(mainKeyName);
+    for (const key in obj) {obj.key='';}
 }   
-
-
-
+function dataFromStorage(){
   if(localStorage.getItem(mainKeyName)!==null){
-    if(mainFormEl.elements.email.value===""||mainFormEl.elements.message.value===""){
-        const tempObj = load(mainKeyName);
-        mainFormEl.elements.email.value = tempObj.email;
-        mainFormEl.elements.message.value = tempObj.message;
-    }
-}
- 
+    obj = load(mainKeyName);
+    for (const key in obj) {
+        mainFormEl.elements[key].value=obj[key];
+  }
+}}
+dataFromStorage();
 mainFormEl.addEventListener('input',throttle(saveKey),"500");
 mainFormEl.addEventListener('submit',clearForm);

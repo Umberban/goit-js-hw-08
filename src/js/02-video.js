@@ -16,5 +16,5 @@ const onPlay = function({seconds}) {
     localStorage.setItem(mainKeyName, seconds);
     console.log(seconds);
 };
-player.on('timeupdate', throttle(onPlay,"1000"));
-player.setCurrentTime(localStorage.getItem(mainKeyName));
+player.on('timeupdate', throttle(onPlay,1000));
+player.setCurrentTime(localStorage.getItem(mainKeyName)||0);
